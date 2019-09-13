@@ -20,32 +20,11 @@ $('form').submit(function(event) {
     freq: $('#in-frequency').val().trim()}
   console.log(newTrain);
 
-  alert(validateTrain(newTrain) || 'success');
-
-
-
-  name = $("#inputName").val().trim();
-  role = $("#inputrole").val().trim();
-  date = $("#inputDate").val().trim();
-  rate = parseInt($("#inputRate").val().trim());
-  console.log(name, role, date, rate);
-  if (name != "" && role != "" && /^\d{2}\/\d{2}\/\d{4}$/.test(date) && !Number.isNaN(rate)) {
-    monthWork = Math.floor(moment(new Date()).diff(moment(date), 'months', true));
-    console.log(monthWork);
-    totalBill = monthWork * rate;
-
-
-    database.ref().push({
-      name,
-      role,
-      date,
-      rate,
-      monthWork,
-      totalBill
-    });
-  } else {
-    alert("Data input incorrect");
-  }
+  let err = invalidTrain(newTrain)
+  if (err)
+    console.log(err);
+  else
+    database.ref().push(newTrain);
 });
 
 database.ref().on(
@@ -84,7 +63,7 @@ database.ref().on(
   }
 );
 
-function validateTrain(train) {
+function invalidTrain(train) {
   if (train.name === '')
     return 'Enter Train Name';
   if (train.dest === "")
