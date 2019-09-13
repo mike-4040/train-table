@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Awesome Time Tabme</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/css/style.css"> ​
@@ -46,7 +46,30 @@
       </tbody>
     </table>
 
-
+    <h2>Add a Train</h2>
+    <form>
+      <div class="form-row">
+        <div class="col">
+          <label for="in-train-name">Train Name</label>
+          <input type="text" class="form-control" placeholder="Train Name" id="in-train-name">
+        </div>
+        <div class="col">
+          <label for="in-train-destination">Destination</label>
+          <input type="text" class="form-control" placeholder="Destination" id="in-destination">
+        </div>
+        <div class="col">
+          <label for="in-first-train">First Train Time</label>
+          <input type="text" class="form-control" placeholder="MM/DD/YYYY" id="in-first-train">
+        </div>
+        <div class="col">
+          <label for="in-frequency">Frequency, min</label>
+          <input type="text" class="form-control" placeholder="Frequency, min" id="in-frequency">
+        </div>
+        <div class="col">
+          <button type="submit" class="btn btn-primary mb-2" id="in-btn">Submit</button>
+        </div>
+      </div>
+    </form>
 
 
     <div class="row scheduleRow">

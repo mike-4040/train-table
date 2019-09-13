@@ -7,18 +7,23 @@ var firebaseConfig = {
   messagingSenderId: "779882149461",
   appId: "1:779882149461:web:f3c7bdbd743de3e64986dc"
 };
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// Create a variable to reference the database.
 var database = firebase.database();
-var name = "";
-var role = "";
-var date = "";
-var rate = "";
-var monthWork = "";
-var totalBill = "";
 
-$("#submitButton").on("click", function () {
+$('form').submit(function(event) {
+  event.preventDefault();
+  
+  let newTrain = {
+    name: $('#in-train-name').val().trim(),
+    dest: $('#in-destination').val().trim(),
+    first: $('#in-first-train').val().trim(),
+    freq: $('#in-frequency').val().trim()}
+  console.log(newTrain);
+
+  alert(validateTrain(newTrain) || 'success');
+
+
+
   name = $("#inputName").val().trim();
   role = $("#inputrole").val().trim();
   date = $("#inputDate").val().trim();
@@ -46,7 +51,7 @@ $("#submitButton").on("click", function () {
 database.ref().on(
   "child_added",
   function (snapshot) {
-    console.log(snapshot.val())
+    console.log('Snap: ', snapshot.val())
 
     var newDiv = $("<div>")
     newDiv.addClass("row")
@@ -78,3 +83,14 @@ database.ref().on(
     $("#trainDisplay").append(newDiv)
   }
 );
+
+function validateTrain(train) {
+  if (train.name === '')
+    return 'Enter Train Name';
+  if (train.dest === "")
+    return 'Enter Train Destination';
+  if (!(parseInt(train.freq) > 0))
+    return 'Enter valid Frequency';
+  if (!/^\d{2}\:d{2}$/.test(train.first))
+    return 'Enter time in HH:MM format'
+}
