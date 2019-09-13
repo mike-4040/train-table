@@ -10,66 +10,48 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-$('form').submit(function(event) {
+$('form').submit(function (event) {
   event.preventDefault();
-  
+
   let newTrain = {
     name: $('#in-train-name').val().trim(),
     dest: $('#in-destination').val().trim(),
     first: $('#in-first-train').val().trim(),
-    freq: $('#in-frequency').val().trim()}
+    freq: $('#in-frequency').val().trim()
+  }
   console.log(newTrain);
-
-  let err = invalidTrain(newTrain)
-  if (err)
-    console.log(err);
-  else
-    database.ref().push(newTrain);
+  database.ref().push(newTrain);
 });
 
 database.ref().on(
   "child_added",
   function (snapshot) {
-    console.log('Snap: ', snapshot.val())
+    let train = {}
+    Object.assign(train, snapshot.val());
+    console.log('Snap: ', train);
+    train.next = '99:88';
+    train.away = 11;
 
-    var newDiv = $("<div>")
-    newDiv.addClass("row")
-    newDiv.addClass("trainInfoRow")
-    var nameDiv = $("<div>")
-    nameDiv.text(snapshot.val().name);
-    nameDiv.addClass("col-md-2")
-    newDiv.append(nameDiv)
-    var roleDiv = $("<div>")
-    roleDiv.text(snapshot.val().role);
-    roleDiv.addClass("col-md-2")
-    newDiv.append(roleDiv)
-    var dateDiv = $("<div>")
-    dateDiv.text(snapshot.val().date);
-    dateDiv.addClass("col-md-2")
-    newDiv.append(dateDiv)
-    var monthDiv = $("<div>")
-    monthDiv.text(snapshot.val().monthWork)
-    monthDiv.addClass("col-md-2")
-    newDiv.append(monthDiv)
-    var rateDiv = $("<div>")
-    rateDiv.text(snapshot.val().rate);
-    rateDiv.addClass("col-md-2")
-    newDiv.append(rateDiv)
-    var totalDiv = $("<div>")
-    totalDiv.text(snapshot.val().totalBill);
-    totalDiv.addClass("col-md-2")
-    newDiv.append(totalDiv)
-    $("#trainDisplay").append(newDiv)
+
+  //   var empStartPretty = moment
+  //   .unix(empStart)
+  //   .format("MM/DD/YYYY");
+
+  // // Calculate the months worked using hardcore math
+  // // To calculate the months worked
+  // var empMonths = moment().diff(
+  //   moment(empStart, "X"),
+  //   "months"
+  // );
+
+
+    let newRow = $('<tr>');
+    newRow
+      .append($('<td>').text(train.name))
+      .append($('<td>').text(train.dest))
+      .append($('<td>').text(train.freq))
+      .append($('<td>').text(train.next))
+      .append($('<td>').text(train.away))
+    $('tbody').append(newRow);
   }
 );
-
-function invalidTrain(train) {
-  if (train.name === '')
-    return 'Enter Train Name';
-  if (train.dest === "")
-    return 'Enter Train Destination';
-  if (!(parseInt(train.freq) > 0))
-    return 'Enter valid Frequency';
-  if (!/^\d{2}\:\d{2}$/.test(train.first))
-    return 'Enter time in HH:MM format'
-}
