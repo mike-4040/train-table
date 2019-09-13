@@ -91,6 +91,6 @@ function validateTrain(train) {
     return 'Enter Train Destination';
   if (!(parseInt(train.freq) > 0))
     return 'Enter valid Frequency';
-  if (!/^\d{2}\:d{2}$/.test(train.first))
+  if (!/^\d{2}\:\d{2}$/.test(train.first))
     return 'Enter time in HH:MM format'
 }
