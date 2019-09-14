@@ -19,7 +19,6 @@ $('form').submit(function (event) {
     first: $('#in-first-train').val().trim(),
     freq: $('#in-frequency').val().trim()
   }
-  console.log(newTrain);
   database.ref().push(newTrain);
 });
 
@@ -28,21 +27,25 @@ database.ref().on(
   function (snapshot) {
     let train = {}
     Object.assign(train, snapshot.val());
-    console.log('Snap: ', train);
     train.next = '99:88';
     train.away = 11;
 
-
-  //   var empStartPretty = moment
-  //   .unix(empStart)
-  //   .format("MM/DD/YYYY");
-
-  // // Calculate the months worked using hardcore math
-  // // To calculate the months worked
-  // var empMonths = moment().diff(
-  //   moment(empStart, "X"),
-  //   "months"
-  // );
+    let fistTrain = moment(train.first, 'hh:mm');
+    let now = moment();
+  
+    console.log('First Train', fistTrain);
+    console.log('Now', now);
+    let passed = 0;
+    if(fistTrain.isBefore(now)) {
+      console.log('before');
+      passed = now.diff(fistTrain, 'minutes');
+      train.away = train.freq - passed % train.freq;
+      train.next = now.add(train.away, 'm').format('hh:mm');
+    } else {
+      console.log('after');
+      train.next = train.first;
+    }
+    console.log('Passed', passed);
 
 
     let newRow = $('<tr>');
