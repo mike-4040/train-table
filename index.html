@@ -28,13 +28,12 @@
           class="card-img"
           alt="Scenic Train"
         />
-        <div class="card-img-overlay">
-          <h2 class="card-title">Time Table</h2>
-          <p class="card-text">Some text</p>
+        <div class="card-img-overlay mt-md-5 pt-sm-5">
+          <h1 class="card-title text-white text-center mt-md-5">The Time Table</h2>
         </div>
       </div>
-      <h3>Current Train Schedule</h3>
-      <table class="table">
+      <h2 class="mt-3 text-center">Current Train Schedule</h3>
+      <table class="table table-striped">
         <thead class="thead-light">
           <tr>
             <th scope="col">Train Name</th>
@@ -46,52 +45,52 @@
         </thead>
         <tbody></tbody>
       </table>
-      <h2>Add a Train</h2>
+      <h2 class="text-center">Add a Train</h2>
       <form>
         <div class="form-row">
-          <div class="col">
+          <div class="col-sm-6 col-md">
             <label for="in-train-name">Train Name</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control mb-2"
               required="required"
               placeholder="Train Name"
               id="in-train-name"
             />
           </div>
-          <div class="col">
+          <div class="col-sm-6 col-md">
             <label for="in-train-destination">Destination</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control mb-2"
               required="required"
               placeholder="Destination"
               id="in-destination"
             />
           </div>
-          <div class="col">
+          <div class="col-sm-6 col-md">
             <label for="in-first-train">First Train Time</label>
             <input
               type="text"
               pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]"
               required="required"
-              class="form-control"
+              class="form-control mb-2"
               placeholder="HH:MM"
               id="in-first-train"
             />
           </div>
-          <div class="col">
+          <div class="col-sm-6 col-md">
             <label for="in-frequency">Frequency, min</label>
             <input
               type="number"
-              class="form-control"
+              class="form-control mb-2"
               required="required"
               placeholder="Frequency, min"
               id="in-frequency"
             />
           </div>
-          <div class="col">
-            <button type="submit" class="btn btn-primary mb-2" id="in-btn">
+          <div class="d-flex align-items-end">
+            <button type="submit" class="btn btn-primary mb-2 ml-2" id="in-btn">
               Submit
             </button>
           </div>
