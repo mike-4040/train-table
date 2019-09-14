@@ -20,6 +20,7 @@ $('form').submit(function (event) {
     freq: $('#in-frequency').val().trim()
   }
   database.ref().push(newTrain);
+  $('form').trigger('reset');
 });
 
 database.ref().on(
