@@ -1,4 +1,4 @@
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyARAKGFQsTjG7EjQwC8VZy5zsWj9Dwy9iA",
   authDomain: "mk-time-table.firebaseapp.com",
   databaseURL: "https://mk-time-table.firebaseio.com",
@@ -8,7 +8,7 @@ var firebaseConfig = {
   appId: "1:779882149461:web:f3c7bdbd743de3e64986dc"
 };
 firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
+const database = firebase.database();
 
 $('form').submit(function (event) {
   event.preventDefault();
@@ -25,36 +25,26 @@ $('form').submit(function (event) {
 database.ref().on(
   "child_added",
   function (snapshot) {
-    let train = {}
-    Object.assign(train, snapshot.val());
-    train.next = '99:88';
-    train.away = 11;
-
-    let fistTrain = moment(train.first, 'hh:mm');
+    const train = snapshot.val();
+    let fistToday = moment(train.first, 'HH:mm');
     let now = moment();
-  
-    console.log('First Train', fistTrain);
-    console.log('Now', now);
-    let passed = 0;
-    if(fistTrain.isBefore(now)) {
-      console.log('before');
-      passed = now.diff(fistTrain, 'minutes');
-      train.away = train.freq - passed % train.freq;
-      train.next = now.add(train.away, 'm').format('hh:mm');
-    } else {
-      console.log('after');
-      train.next = train.first;
-    }
-    console.log('Passed', passed);
+    let passed = now.diff(fistToday, 'minutes');;
 
+    if(passed >= 0) {
+      away = train.freq - passed % train.freq;
+      next = now.add(away, 'm');
+    } else {
+      next = fistToday;
+      away = next.diff(now, 'minutes');
+    }
 
     let newRow = $('<tr>');
     newRow
       .append($('<td>').text(train.name))
       .append($('<td>').text(train.dest))
       .append($('<td>').text(train.freq))
-      .append($('<td>').text(train.next))
-      .append($('<td>').text(train.away))
+      .append($('<td>').text(next.format('HH:mm')))
+      .append($('<td>').text(away))
     $('tbody').append(newRow);
   }
 );
