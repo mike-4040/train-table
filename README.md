@@ -10,14 +10,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need a firebase project.
-Go to [firebase](firebase.google.com) and create an account. Then, create a project.
+You will need a firebase app.
+Go to [firebase](firebase.google.com) and create an account. It's very easy, just follow instructions.
+Then, create a project.
 When you inside the project, create an app.
 
 ### Installing
-Git clone the repository to your local machine.
-Grab Firebase SDK snippet / Config from Firebase app setting
-Update `firebaseConfig` in `resouces/time-table.js`
+
+Clone the repository to your local machine.
+Grab Firebase SDK snippet / Config from Firebase app setting.
+Update `firebaseConfig` in `resouces/time-table.js`.
 You are good to go.
 
 ## Built With
